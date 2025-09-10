@@ -4,29 +4,34 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class RadioTest {
+    Radio radio = new Radio(20);
 
     @Test
-    void SetNumberRadioWaveDown() {
-        Radio radio = new Radio();
-        radio.setNumberCurrentWave(0);
-        radio.decreaseNumberCurrentWave();
+    void shouldPrevNumberCurrentWave() {
+        radio.setCurrentRadioStation(10);
+        radio.prevNumberCurrentWave();
         int expected = 9;
-        Assertions.assertEquals(expected, radio.getNumberCurrentWave());
+        Assertions.assertEquals(expected, radio.getCurrentRadioStation());
 
     }
 
     @Test
-    void SetNumberCurrentUp() {
-        Radio radio = new Radio();
-        radio.setNumberCurrentWave(9);
-        radio.increaseNumberCurrentWave();
-        int expected = 0;
-        Assertions.assertEquals(expected, radio.getNumberCurrentWave());
+    void shouldSetCurrentRadioStation() {
+        radio.setCurrentRadioStation(14);
+        int expected = 14;
+        Assertions.assertEquals(expected, radio.getCurrentRadioStation());
     }
 
     @Test
-    void IncreaseVolumeLimitUp() {
-        Radio radio = new Radio();
+    void shouldNextNumberCurrentWave() {
+        radio.setCurrentRadioStation(9);
+        radio.nextNumberCurrentWave();
+        int expected = 10;
+        Assertions.assertEquals(expected, radio.getCurrentRadioStation());
+    }
+
+    @Test
+    void shouldNotIncreaseVolumeLimitUp() {
         radio.setVolumeSound(100);
         int expected = 100;
         radio.increaseVolumeSound();
@@ -34,8 +39,7 @@ public class RadioTest {
     }
 
     @Test
-    void DecreaseVolumeLimitDown() {
-        Radio radio = new Radio();
+    void shouldNotDecreaseVolumeLimitDown() {
         radio.setVolumeSound(0);
         int expected = 0;
         radio.decreaseVolumeSound();
@@ -44,34 +48,23 @@ public class RadioTest {
 
 
     @Test
-    void increaseNumberCurrentWave() {
-        Radio radio = new Radio();
-        radio.setNumberCurrentWave(5);
+    void ShouldIncreaseNumberCurrentWave() {
+        radio.setCurrentRadioStation(5);
         int expected = 6;
-        radio.increaseNumberCurrentWave();
-        Assertions.assertEquals(expected, radio.getNumberCurrentWave());
+        radio.nextNumberCurrentWave();
+        Assertions.assertEquals(expected, radio.getCurrentRadioStation());
     }
 
     @Test
-    void decreaseNumberCurrentWave() {
-        Radio radio = new Radio();
-        radio.setNumberCurrentWave(7);
+    void shouldDecreaseNumberCurrentWave() {
+        radio.setCurrentRadioStation(7);
         int expected = 6;
-        radio.decreaseNumberCurrentWave();
-        Assertions.assertEquals(expected, radio.getNumberCurrentWave());
+        radio.prevNumberCurrentWave();
+        Assertions.assertEquals(expected, radio.getCurrentRadioStation());
     }
 
     @Test
-    void setNumberCurrentWave() {
-        Radio radio = new Radio();
-        radio.setNumberCurrentWave(5);
-        int expected = 5;
-        Assertions.assertEquals(expected, radio.getNumberCurrentWave());
-    }
-
-    @Test
-    void increaseVolumeSound() {
-        Radio radio = new Radio();
+    void shouldIncreaseVolumeSound() {
         radio.setVolumeSound(50);
         int expected = 51;
         radio.increaseVolumeSound();
@@ -79,8 +72,7 @@ public class RadioTest {
     }
 
     @Test
-    void decreaseVolumeSound() {
-        Radio radio = new Radio();
+    void shouldDDecreaseVolumeSound() {
         radio.setVolumeSound(51);
         int expected = 50;
         radio.decreaseVolumeSound();
@@ -88,12 +80,42 @@ public class RadioTest {
     }
 
     @Test
-    void setVolumeSound() {
-        Radio radio = new Radio();
+    void shoulSetVolumeSound() {
         radio.setVolumeSound(50);
         int expected = 50;
-
         Assertions.assertEquals(expected, radio.getVolumeSound());
+    }
+
+    @Test
+    void shouldSetALotRadioStation() {
+        Radio newRadio = new Radio(40);
+        int expected = 40;
+        Assertions.assertEquals(expected, newRadio.getALotRadioStation());
+    }
+
+    @Test
+    void shouldDefaultCountStation() {
+        Radio radioDefault = new Radio();
+        int expected = 10;
+        Assertions.assertEquals(expected, radioDefault.getALotRadioStation());
+    }
+
+    @Test
+    void SetNumberRadioWaveDown() {
+
+        radio.setCurrentRadioStation(0);
+        radio.prevNumberCurrentWave();
+        int expected = 19;
+        Assertions.assertEquals(expected, radio.getCurrentRadioStation());
+    }
+
+    @Test
+    void SetNumberCurrentUp() {
+
+        radio.setCurrentRadioStation(19);
+        radio.nextNumberCurrentWave();
+        int expected = 0;
+        Assertions.assertEquals(expected, radio.getCurrentRadioStation());
     }
 }
 
